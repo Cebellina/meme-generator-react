@@ -6,11 +6,11 @@
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "typescript": "latest",
+    "html2canvas": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "html2canvas": "latest"
-  },
-  "devDependencies": {}
+    "react-rnd": "^10.5.3",
+    "typescript": "latest",
+    "vite": "latest"
+  }
 }
