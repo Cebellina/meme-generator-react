@@ -4,23 +4,53 @@ import MemeSelector from "./components/MemeSelector";
 import MemePreview from "./components/MemePreview";
 import TextControls from "./components/TextControls";
 
+export interface MemeText {
+  id: number;
+  value: string;
+  size: number;
+}
+
 const memeImages = ["/meme1.png", "/meme2.png", "/meme3.png", "/meme4.png", "/meme5.png", "/meme6.png", "/meme7.png", "/meme8.png", "/meme9.png", "/meme10.png", "/meme11.png", "/meme12.png", "/meme13.png", "/meme14.png", "/meme15.png", "/meme16.png"];
 
 function App() {
   const [showSelector, setShowSelector] = useState(false);
   const [selectedMeme, setSelectedMeme] = useState("");
-  const [topText, setTopText] = useState("");
-  const [bottomText, setBottomText] = useState("");
-  const [topSize, setTopSize] = useState(42);
-  const [bottomSize, setBottomSize] = useState(42);
+  const [texts, setTexts] = useState<MemeText[]>([]);
 
   function chooseMeme(image: string) {
     setSelectedMeme(image);
-    setTopText("");
-    setBottomText("");
-    setTopSize(42);
-    setBottomSize(42);
+    setTexts([]);
     setShowSelector(false);
+  }
+
+  function addText() {
+    const newText: MemeText = {
+      id: Date.now(),
+      value: "",
+      size: 42
+    };
+
+    setTexts([...texts, newText]);
+  }
+
+  function updateText(id: number, value: string) {
+    setTexts(
+      texts.map((text) =>
+        text.id === id ? { ...text, value } : text
+      )
+    );
+  }
+
+  function updateTextSize(id: number, size: number) {
+    setTexts(
+      texts.map((text) =>
+        text.id === id ? { ...text, size } : text
+      )
+    );
+  }
+
+  function removeText(id: number) {
+    setTexts(texts.filter((text) => text.id !== id));
   }
 
   function saveMeme() {
@@ -56,24 +86,20 @@ function App() {
 
       {selectedMeme && (
         <>
-          <MemePreview
-            image={selectedMeme}
-            topText={topText}
-            bottomText={bottomText}
-            topSize={topSize}
-            bottomSize={bottomSize}
-          />
+          <MemePreview image={selectedMeme} texts={texts} />
 
-          <TextControls
-            topText={topText}
-            bottomText={bottomText}
-            topSize={topSize}
-            bottomSize={bottomSize}
-            onTopTextChange={setTopText}
-            onBottomTextChange={setBottomText}
-            onTopSizeChange={setTopSize}
-            onBottomSizeChange={setBottomSize}
-          />
+          <button className="primary-button" onClick={addText}>
+            Lägg till text
+          </button>
+
+          {texts.length > 0 && (
+            <TextControls
+              texts={texts}
+              onUpdateText={updateText}
+              onUpdateTextSize={updateTextSize}
+              onRemoveText={removeText}
+            />
+          )}
 
           <button className="download-button" onClick={saveMeme}>
             Ladda ner meme

@@ -1,67 +1,54 @@
+import type { MemeText } from "../App";
+
 interface TextControlsProps {
-  topText: string;
-  bottomText: string;
-  topSize: number;
-  bottomSize: number;
-  onTopTextChange: (value: string) => void;
-  onBottomTextChange: (value: string) => void;
-  onTopSizeChange: (value: number) => void;
-  onBottomSizeChange: (value: number) => void;
+  texts: MemeText[];
+  onUpdateText: (id: number, value: string) => void;
+  onUpdateTextSize: (id: number, size: number) => void;
+  onRemoveText: (id: number) => void;
 }
 
 function TextControls({
-  topText,
-  bottomText,
-  topSize,
-  bottomSize,
-  onTopTextChange,
-  onBottomTextChange,
-  onTopSizeChange,
-  onBottomSizeChange
+  texts,
+  onUpdateText,
+  onUpdateTextSize,
+  onRemoveText
 }: TextControlsProps) {
   return (
     <section className="text-controls">
-      <label>
-        Top text
-        <input
-          type="text"
-          value={topText}
-          placeholder="Skriv text längst upp"
-          onChange={(event) => onTopTextChange(event.target.value)}
-        />
-      </label>
+      {texts.map((text, index) => (
+        <div className="text-control" key={text.id}>
+          <label>
+            Text {index + 1}
+            <input
+              type="text"
+              value={text.value}
+              placeholder="Skriv meme-text"
+              onChange={(event) => onUpdateText(text.id, event.target.value)}
+            />
+          </label>
 
-      <label>
-        Storlek top text: {topSize}px
-        <input
-          type="range"
-          min="20"
-          max="80"
-          value={topSize}
-          onChange={(event) => onTopSizeChange(Number(event.target.value))}
-        />
-      </label>
+          <label>
+            Storlek: {text.size}px
+            <input
+              type="range"
+              min="20"
+              max="80"
+              value={text.size}
+              onChange={(event) =>
+                onUpdateTextSize(text.id, Number(event.target.value))
+              }
+            />
+          </label>
 
-      <label>
-        Bottom text
-        <input
-          type="text"
-          value={bottomText}
-          placeholder="Skriv text längst ner"
-          onChange={(event) => onBottomTextChange(event.target.value)}
-        />
-      </label>
-
-      <label>
-        Storlek bottom text: {bottomSize}px
-        <input
-          type="range"
-          min="20"
-          max="80"
-          value={bottomSize}
-          onChange={(event) => onBottomSizeChange(Number(event.target.value))}
-        />
-      </label>
+          <button
+            className="remove-button"
+            type="button"
+            onClick={() => onRemoveText(text.id)}
+          >
+            Ta bort text
+          </button>
+        </div>
+      ))}
     </section>
   );
 }

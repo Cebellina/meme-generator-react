@@ -34,11 +34,16 @@ button {
   background: #111827;
   color: white;
   font-size: 16px;
+  margin-inline: 2px;
 }
 
 .primary-button:hover,
 .download-button:hover {
   background: #374151;
+}
+
+.download-button {
+  margin-top: 16px;
 }
 
 .info-text {
@@ -95,21 +100,24 @@ button {
 .meme img {
   width: 100%;
   display: block;
+  pointer-events: none;
+  user-select: none;
 }
 
 .meme__text {
-  position: absolute;
-  left: 50%;
-  width: 92%;
+  width: 100%;
+  min-height: 45px;
   margin: 0;
-  transform: translateX(-50%);
+  padding: 4px;
   color: white;
-  font-family: Impact, Arial Black, sans-serif;
+  font-family: Impact, "Arial Black", sans-serif;
   letter-spacing: 2px;
   line-height: 1.05;
   overflow-wrap: break-word;
   text-align: center;
   text-transform: uppercase;
+  cursor: move;
+  user-select: none;
   text-shadow:
     3px 3px 0 black,
     -3px 3px 0 black,
@@ -117,19 +125,11 @@ button {
     -3px -3px 0 black;
 }
 
-.meme__text--top {
-  top: 24px;
-}
-
-.meme__text--bottom {
-  bottom: 24px;
-}
-
 .text-controls {
   display: grid;
   gap: 18px;
   width: min(500px, 100%);
-  margin: 0 auto 24px;
+  margin: 24px auto;
   padding: 22px;
   background: white;
   border-radius: 18px;
@@ -155,12 +155,43 @@ button {
   width: 100%;
 }
 
+.text-control {
+  display: grid;
+  gap: 12px;
+  padding: 0 0 18px;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.text-control:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.remove-button {
+  padding: 10px 14px;
+  background: #dc2626;
+  color: white;
+}
+
+.remove-button:hover {
+  background: #991b1b;
+}
+
 @media (max-width: 600px) {
+  .app {
+    padding: 24px 14px;
+  }
+
   h1 {
     font-size: 32px;
   }
 
+  .meme-selector__grid {
+    grid-template-columns: 1fr;
+  }
+
   .meme__text {
+    min-height: 36px;
     letter-spacing: 1px;
     text-shadow:
       2px 2px 0 black,
