@@ -10,7 +10,24 @@ export interface MemeText {
   size: number;
 }
 
-const memeImages = ["/meme1.png", "/meme2.png", "/meme3.png", "/meme4.png", "/meme5.png", "/meme6.png", "/meme7.png", "/meme8.png", "/meme9.png", "/meme10.png", "/meme11.png", "/meme12.png", "/meme13.png", "/meme14.png", "/meme15.png", "/meme16.png"];
+const memeImages = [
+  `${import.meta.env.BASE_URL}meme1.png`,
+  `${import.meta.env.BASE_URL}meme2.png`,
+  `${import.meta.env.BASE_URL}meme3.png`,
+  `${import.meta.env.BASE_URL}meme4.png`,
+  `${import.meta.env.BASE_URL}meme5.png`,
+  `${import.meta.env.BASE_URL}meme6.png`,
+  `${import.meta.env.BASE_URL}meme7.png`,
+  `${import.meta.env.BASE_URL}meme8.png`,
+  `${import.meta.env.BASE_URL}meme9.png`,
+  `${import.meta.env.BASE_URL}meme10.png`,
+  `${import.meta.env.BASE_URL}meme11.png`,
+  `${import.meta.env.BASE_URL}meme12.png`,
+  `${import.meta.env.BASE_URL}meme13.png`,
+  `${import.meta.env.BASE_URL}meme14.png`,
+  `${import.meta.env.BASE_URL}meme15.png`,
+  `${import.meta.env.BASE_URL}meme16.png`
+];
 
 function App() {
   const [showSelector, setShowSelector] = useState(false);
